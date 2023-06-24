@@ -46,12 +46,12 @@ _UPDATE() {
 	NOWIPV6=$(tail -1 nowip_hosts.txt)
 
 	# 这里可以自己添加、修改 CloudflareST 的运行参数
-	cdnspeedtest -f "ip.txt" -o "result_hosts_ipv4.txt"
+	cdnspeedtest -f "ip.txt" -o "result_hosts_ipv4.txt" -dd -t 1
 
 	# 如果需要 "找不到满足条件的 IP 就一直循环测速下去"，那么可以将下面的两个 exit 0 改为 _UPDATE 即可
 	[[ ! -e "result_hosts_ipv4.txt" ]] && echo "CloudflareST 测速结果 IPv4 数量为 0，跳过下面步骤..." && exit 0
 
-	cdnspeedtest -f "ipv6.txt" -o "result_hosts_ipv6.txt"
+	cdnspeedtest -f "ipv6.txt" -o "result_hosts_ipv6.txt" -dd -t 1
 	[[ ! -e "result_hosts_ipv6.txt" ]] && echo "CloudflareST 测速结果 IPv6 数量为 0，跳过下面步骤..." && exit 0
 
 	# 下面这行代码是 "找不到满足条件的 IP 就一直循环测速下去" 才需要的代码
