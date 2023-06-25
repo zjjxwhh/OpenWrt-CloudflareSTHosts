@@ -17,22 +17,26 @@ _CHECK() {
 	while true
 		do
 		if [[ ! -e "nowip_hosts.txt" ]]; then
-			echo -e "该脚本的作用为 CloudflareST 测速后获取最快 IP 并替换 Hosts 中的 Cloudflare CDN IP。\n使用前请先阅读：https://github.com/XIU2/CloudflareSpeedTest/issues/42#issuecomment-768273848"
+			echo -e "该脚本的作用为 CloudflareST 测速后获取最快 IP 并替换 Hosts 中的 Cloudflare CDN IP。"
+			echo -e "使用前请先阅读相关使用说明："
+			echo -e "- https://github.com/zjjxwhh/OpenWrt-CloudflareSTHosts/blob/main/README.md"
+			echo -e "- https://github.com/XIU2/CloudflareSpeedTest/issues/42#issuecomment-768273848"
 			echo -e "第一次使用，请先将 Hosts 中所有 Cloudflare CDN IP 统一改为一个 IP。"
 			read -e -p "输入该 Cloudflare CDN IPv4 并回车（后续不再需要该步骤）：" NOWIPV4
 			if [[ ! -z "${NOWIPV4}" ]]; then
 				echo ${NOWIPV4} > nowip_hosts.txt
-				break
 			else
 				echo "该 IPv4 不能是空！"
+				break
 			fi
 
 			read -e -p "输入该 Cloudflare CDN IPv6 并回车（后续不再需要该步骤）：" NOWIPV6
 			if [[ ! -z "${NOWIPV6}" ]]; then
-				echo ${NOWIPV6} > nowip_hosts.txt
-				break
+				echo ${NOWIPV6} >> nowip_hosts.txt
 			else
 				echo "该 IPv6 不能是空！"
+				rm -f "nowip_hosts.txt"
+				break
 			fi
 		else
 			break
