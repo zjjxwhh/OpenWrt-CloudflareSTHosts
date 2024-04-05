@@ -71,3 +71,13 @@
     # 每天 2:00 运行
     0 2 * * * cd /etc/CloudflareST/ && bash cfst_hosts.sh
     ```
+
+## 注意事项
+
+1. 可在 `/etc/sysupgrade.conf` 文件中增加条目，避免升级时相关脚本及配置被清除
+
+   ```text
+   # CloudflareSTHosts
+   /etc/myhosts
+   /etc/CloudflareST
+   ```
